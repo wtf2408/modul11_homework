@@ -1,0 +1,64 @@
+﻿<Window xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Class="modul11.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:modul11"
+        mc:Ignorable="d"
+        Height="500" Width="720" 
+        WindowStyle="None" ResizeMode="NoResize"
+        Background="{x:Null}">
+
+
+    <Grid Background="#353131">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Row="0"
+              Grid.Column="1"
+              Background="AliceBlue">
+            
+            <Button Style="{StaticResource MaterialDesignIconButton}"
+                    Height="30"
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Click="ButtonExit">
+                <materialDesign:PackIcon Kind="Close"/>
+            </Button>
+        </Grid>
+        <Grid Grid.RowSpan="2" Background="#292929">
+            <StackPanel Grid.RowSpan="2" Background="#292929"
+                        VerticalAlignment="Top">
+                <Button Content="Manager"
+                        Margin="0 0 0 10"
+                        FontSize="15"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Click="ManagerButtonClick"
+                        Height="30"
+                        />
+                        
+                <Button Content="Consultant"
+                        FontSize = "15"
+                        Style="{StaticResource MaterialDesignFlatButton}" 
+                        Click="ConsultantButtonClick"/>
+                
+            </StackPanel>
+        </Grid>
+        <Frame x:Name="mainFrame"
+               Grid.Column="1"
+               Grid.Row="1"
+               NavigationUIVisibility="Hidden">
+            
+        </Frame>
+    </Grid>
+
+
+</Window>
