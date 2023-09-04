@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:modul11"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="470" d:DesignWidth="600">
+      d:DesignHeight="470" d:DesignWidth="600"
+      Background="#242424">
 
     <Page.Resources>
         <Style TargetType="TextBox"
@@ -15,64 +16,80 @@
                >
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Margin" Value="10"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
         </Style>
         <Style TargetType="PasswordBox"
                x:Key="passwordboxConsultant"
                BasedOn="{StaticResource MaterialDesignPasswordBox}"
                >
             <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
             <Setter Property="Margin" Value="10"/>
         </Style>
 
     </Page.Resources>
 
-    <Grid>
+    <Grid> <!--Главный контейнер-->
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="219*"/>
             <RowDefinition Height="52*"/>
-            <RowDefinition Height="209*"/>
-            <RowDefinition Height="48*"/>
-            <RowDefinition Height="161*"/>
+            <RowDefinition Height="152*"/>
         </Grid.RowDefinitions>
 
         <Label Content="Текущий клиент"
                Foreground="AliceBlue"
                FontSize="25"
                Margin="5 0 0 0"/>
-        <Grid Margin="0,52,0,0" Grid.RowSpan="2">
+        
+        
+        <!--Панель отображения данных клиента-->
+        <Border Grid.Row="1"
+                Background="#2B2B2B"
+                CornerRadius="10"
+                Margin="10,10,10,10">
+            
+            <Grid>
 
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-            <TextBox Style="{StaticResource textboxConsultant}"
-                     materialDesign:HintAssist.Hint="Имя"
-                     Name="textBox_firstName"
-                     />
-            <TextBox Style="{StaticResource textboxConsultant}"
-                     materialDesign:HintAssist.Hint="Фамилия"
-                     Grid.Row="1"
-                     Name="textBox_lastName"
-                     />
-            <TextBox Style="{StaticResource textboxConsultant}"
-                     materialDesign:HintAssist.Hint="Номер телефона"
-                     Grid.Row="2"
-                       Name="textBox_phoneNumber"
-                     />
-            <PasswordBox Style="{StaticResource passwordboxConsultant}"
-                     materialDesign:HintAssist.Hint="Паспорт"
-                     Grid.Row="3"
-                     Name="textBox_passport"
-                     />
-        </Grid>
-
+                <TextBox Style="{StaticResource textboxConsultant}"
+                         materialDesign:HintAssist.Hint="Имя"
+                         Name="textBox_firstName"
+                         Text="{Binding FirstName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                         />
+                <TextBox Style="{StaticResource textboxConsultant}"
+                         materialDesign:HintAssist.Hint="Фамилия"
+                         Grid.Row="1"
+                         Name="textBox_lastName"
+                         Text="{Binding LastName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                         />
+                <TextBox Style="{StaticResource textboxConsultant}"
+                         materialDesign:HintAssist.Hint="Номер телефона"
+                         Grid.Row="2"
+                         Name="textBox_phoneNumber"
+                         Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         />
+                <PasswordBox Style="{StaticResource passwordboxConsultant}"
+                             materialDesign:HintAssist.Hint="Паспорт"
+                             Grid.Row="3"
+                             Name="textBox_passport"
+                             
+                             />
+            </Grid>
+        </Border>
+        
+        
         <Button Content="Принять изменения"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignRaisedButton}"
@@ -82,21 +99,25 @@
 
 
 
-        <Label Content="Клиенты"
-               Grid.Column="1"
+        <!--Заголовок списка клиентов-->
+        <Border Grid.Column="1"
+                CornerRadius="4"
+                Background="{StaticResource PrimaryHueMidBrush}"
+                Margin="4">
+            <Label Content="Клиенты"
                Foreground="AliceBlue"
-               FontSize="25"
-               Background="#3A4A51"
-               Margin="0 0 0 5"
+               FontSize="20"
                />
+        </Border>
 
+
+        <!--Список клиентов-->
         <ListBox x:Name="listboxconsultant"
                  Grid.Column="1"
                  Grid.Row="1"
                  Grid.RowSpan="3"
-                 Background="#292929"
                  ScrollViewer.VerticalScrollBarVisibility = "Visible" 
-                 SelectionChanged="ListBox_SelectionChanged"
+                 SelectionChanged="OnClickToClient"
                  >
             <ListBox.ItemTemplate>
                 <DataTemplate>

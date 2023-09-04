@@ -11,6 +11,9 @@ namespace modul11
         public ObservableCollection<Client> Clients { get; set; }
 
         int currentID;
+
+
+
         public ConsultantPage()
         {
             InitializeComponent();
@@ -22,26 +25,22 @@ namespace modul11
             listboxconsultant.ItemsSource = Clients;
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnClickToClient(object sender, SelectionChangedEventArgs e)
         {
             if (listboxconsultant.SelectedItem is Client currentClient)
             {
-                textBox_firstName.Text = currentClient.FirstName;
-                textBox_lastName.Text = currentClient.LastName;
-                textBox_phoneNumber.Text = currentClient.PhoneNumber;
+                textBox_firstName.DataContext = currentClient;
+                textBox_lastName.DataContext = currentClient;
+                textBox_phoneNumber.DataContext = currentClient;
                 textBox_passport.Password = currentClient.Passport;
-                currentID = currentClient.ID;
+
+                currentID = currentClient.ID - 1;
             }
         }
 
         private void OnClickApplyChanges(object sender, RoutedEventArgs e)
         {
-            if (currentID != 0)
-            {
-                Consultant.SetClientPhone(Clients, currentID - 1, textBox_phoneNumber.Text);
-            }
             ClientDB.SaveChange(Clients);
-
         }
 
     }

@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:modul11" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="470" d:DesignWidth="610">
+      d:DesignHeight="470" d:DesignWidth="600"
+      Background="#242424">
 
     <Page.Resources>
         <Style TargetType="TextBox"
@@ -18,55 +19,74 @@
         </Style>
     </Page.Resources>
 
-    <Grid>
+    <Grid> <!--Главный контейнер-->
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="219*"/>
             <RowDefinition Height="52*"/>
-            <RowDefinition Height="209*"/>
-            <RowDefinition Height="48*"/>
-            <RowDefinition Height="161*"/>
+            <RowDefinition Height="152*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Текущий клиент"
+        <Label Content="Текущий клиент" 
                Foreground="AliceBlue"
                FontSize="25"
-               Margin="5 0 0 0"/>
+               Margin="5,0,2,0"/>
+        
+        <!--Панель отображения данных клиента-->
+        <Border Grid.Row="1"
+                Background="#2B2B2B"
+                CornerRadius="10"
+                Margin="10,10,10,10">
 
-        <Grid Grid.Row="1">
+            <Grid>
 
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
 
-            <TextBox Style="{StaticResource textboxManager}"
-                     materialDesign:HintAssist.Hint="Имя"
-                     Name="textBox_firstName"
-                     />
-            <TextBox Style="{StaticResource textboxManager}"
-                     materialDesign:HintAssist.Hint="Фамилия"
-                     Grid.Row="1"
-                     Name="textBox_lastName"
-                     />
-            <TextBox Style="{StaticResource textboxManager}"
-                     materialDesign:HintAssist.Hint="Номер телефона"
-                     Grid.Row="2"
-                     Name="textBox_phoneNumber"
-                     />
-            <TextBox Style="{StaticResource textboxManager}"
-                     materialDesign:HintAssist.Hint="Паспорт"
-                     Grid.Row="3"
-                     Name="textBox_passport"
-                     />
-        </Grid>
+                </Grid.RowDefinitions>
 
-        <Grid Grid.Row="2">
+                <TextBox Style="{StaticResource textboxManager}"
+                         materialDesign:HintAssist.Hint="Имя"
+                         Name="textBox_firstName"
+                         Foreground="AliceBlue"
+                         Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     />
+                <TextBox Style="{StaticResource textboxManager}"
+                         materialDesign:HintAssist.Hint="Фамилия"
+                         Grid.Row="1"
+                         Name="textBox_lastName"
+                         Foreground="AliceBlue"
+                         Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     />
+                <TextBox Style="{StaticResource textboxManager}"
+                         materialDesign:HintAssist.Hint="Номер телефона"
+                         Grid.Row="2"
+                         Name="textBox_phoneNumber"
+                         Foreground="AliceBlue"
+                         Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     />
+                <TextBox Style="{StaticResource textboxManager}"
+                         materialDesign:HintAssist.Hint="Паспорт"
+                         Grid.Row="3"
+                         Name="textBox_passport"
+                         Foreground="AliceBlue"
+                         Text="{Binding Passport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     />
+
+
+            </Grid>
+        </Border>
+
+        <!--Контейнер с кнопками-->
+        <Grid Grid.Row="2" Margin="0,0,2,0">
             <Button Content="Принять изменения"
                     HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignRaisedButton}"
@@ -89,27 +109,88 @@
             </Button>
         </Grid>
 
+        <!--Панель для взаимодействия с счетом-->
+        <Grid Grid.Row="3">
+            
+            <Border IsEnabled="False"
+                    Name="AccountPanal"
+                    Background="#2B2B2B"
+                    CornerRadius="10"
+                    VerticalAlignment="Bottom"
+                    Margin="10 10 10 20">
+                
+                <Grid Height="130"
+                      Margin="8">
+                    <ComboBox Grid.Row="4"
+                              Margin="10 15"
+                              Width="150"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"
+                              Foreground="AliceBlue"
+                              Name="ComboBoxTypesAccount">
+                        <TextBlock Text="Депозитный"
+                                   Foreground="Black"
+                                   Name="ComboBoxDepozit"
+                                   IsEnabled="False"/>
+                        <TextBlock Text="Недепозитный"
+                                   Foreground="Black"
+                                   Name="ComboBoxNonDepozit"/>
+                    </ComboBox>
+                    <TextBox Width="130"
+                             Margin="0 0 10 0"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             materialDesign:HintAssist.Hint="Сумма"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Top"
+                             FontSize="14"
+                             FontWeight="DemiBold"
+                             Foreground="White"
+                             Name="InputSumToTheAccount" 
+                             LostKeyboardFocus="InputSumLostFocus"/>
+                    <Button Content="Открыть счет"
+                            Name="OpenAccountButton"
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource MaterialDesignFlatLightButton}"
+                            Click="OnClickOpenAccount"
+                            VerticalAlignment="Bottom"
+                            Margin="10 0 0 25"/>
+                    <Button Content="Управление счетом"
+                            Name="ManageClientAccountButton"
+                            Style="{StaticResource MaterialDesignFlatLightButton}" 
+                            HorizontalAlignment="Right"
+                            Click="OnClickManageAccountButton"
+                            IsEnabled="False" 
+                            VerticalAlignment="Bottom"
+                            Margin="0 0 10 25"/>
+                </Grid>
+                
+            </Border>
 
+        </Grid>
 
-        <Label Content="Клиенты"
-               Grid.Column="1"
+        <!--Заголовок списка клиентов-->
+        <Border Grid.Column="1"
+                CornerRadius="4"
+                Background="{StaticResource PrimaryHueMidBrush}"
+                Margin="4">
+            <Label Content="Клиенты"
                Foreground="AliceBlue"
-               FontSize="25"
-               Background="#3A4A51"
-               Margin="0 0 0 5"/>
+               FontSize="20"
+               />
+        </Border>
 
 
-
+        <!--Список клиентов-->
         <ListBox x:Name="listboxmanager"
                  Grid.Column="1"
                  Grid.Row="1"
                  Grid.RowSpan="3"
-                 SelectionChanged="ListBox_SelectionChanged" 
-                 Background="#292929"
-                 ScrollViewer.VerticalScrollBarVisibility = "Visible"
-                     >
+                 SelectionChanged="OnClickToListboxItem" 
+                 ScrollViewer.VerticalScrollBarVisibility = "Visible">
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
+
                     <StackPanel Orientation="Horizontal">
 
                         <materialDesign:PackIcon Kind="Person"
@@ -119,7 +200,7 @@
                                                  />
 
 
-                        <TextBlock Text="{ Binding StringFormat = Клиент {0}, Path = ID}"
+                        <TextBlock Text="{Binding StringFormat = Клиент {0}, Path = ID}"
                                    Margin="20 0 0 0"
                                    FontSize="15"
                                    VerticalAlignment="Center"
@@ -130,8 +211,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-        
 
     </Grid>
 </Page>

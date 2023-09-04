@@ -8,36 +8,43 @@
         mc:Ignorable="d"
         Height="500" Width="720" 
         WindowStyle="None" ResizeMode="NoResize"
-        Background="{x:Null}">
+        Background="{x:Null}"
+        WindowStartupLocation="CenterScreen"
+        >
 
 
-    <Grid Background="#353131">
+    <Grid Background="#242424">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="120"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Row="0"
-              Grid.Column="1"
+              Grid.ColumnSpan="2"
               Background="AliceBlue">
             
             <Button Style="{StaticResource MaterialDesignIconButton}"
                     Height="30"
                     Width="30"
                     HorizontalAlignment="Right"
-                    Click="ButtonExit">
+                    Click="ExitWindow">
                 <materialDesign:PackIcon Kind="Close"/>
             </Button>
         </Grid>
-        <Grid Grid.RowSpan="2" Background="#292929">
-            <StackPanel Grid.RowSpan="2" Background="#292929"
+        <Grid Grid.Row="1"
+             >
+            <Border HorizontalAlignment="Right"
+                    BorderBrush="AliceBlue"
+                    BorderThickness="0.5"
+                    />
+            <StackPanel Grid.RowSpan="2"
                         VerticalAlignment="Top">
-                <Button Content="Manager"
+                <Button Content="Менеджер"
                         Margin="0 0 0 10"
                         FontSize="15"
                         Style="{StaticResource MaterialDesignFlatButton}"
@@ -45,7 +52,7 @@
                         Height="30"
                         />
                         
-                <Button Content="Consultant"
+                <Button Content="Консультант"
                         FontSize = "15"
                         Style="{StaticResource MaterialDesignFlatButton}" 
                         Click="ConsultantButtonClick"/>

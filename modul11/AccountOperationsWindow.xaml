@@ -1,0 +1,158 @@
+﻿<Window x:Class="modul11.AccountOperationsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:modul11"
+        mc:Ignorable="d"
+        Height="450" Width="350"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStyle="None"
+        Background="{x:Null}"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True">
+    <Grid>
+        <Border Background="{StaticResource MaterialDesignDarkBackground}" CornerRadius="15"
+                MouseDown="MoveWindow">
+
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="TopMenu" Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}"
+                    Height="30"
+                    Width="30"
+                    HorizontalAlignment="Right"
+                    Click="ExitToMainWindow">
+                    <materialDesign:PackIcon Kind="Close"
+                                             Foreground="AliceBlue"/>
+                </Button>
+
+                <Border Height="2" Background="#3B3B3B"
+                        Grid.Row="1"
+                        VerticalAlignment="Top"
+                        Margin="0 3 0 0"/>
+
+                <Grid Grid.Row="1"
+                      Margin="0 10 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="71*"/>
+                        <RowDefinition Height="337*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <materialDesign:PackIcon Kind="Person"
+                                                 Height="35"
+                                                 Width="35"
+                                                 Foreground="AliceBlue"
+                                                 Margin="10 10 0 0"
+                                                 />
+
+
+                        <TextBlock Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
+                                   Margin="5 16 0 0"
+                                   FontSize="20"
+                                   VerticalAlignment="Top"
+                                   Name = "ClientName"
+                                   Foreground="AliceBlue"
+                                   />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1"
+                                Name="Grid_AccountPanals">
+                        <Border Width="300"
+                                Height="140"
+                                CornerRadius="15"
+                                Background="#424042">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+
+                                <ComboBox Name="AccountComboBox"
+                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                          HorizontalAlignment="Left"
+                                          Width="180"
+                                          Margin="15 0 0 0"
+                                          materialDesign:HintAssist.Hint="Вид счета"
+                                          FontSize ="14"
+                                          Foreground ="Black"
+                                          SelectionChanged="OnClickComboboxItem" GotFocus="AccountComboBoxGotFocus">
+                                    <TextBlock Text="Депозитный"
+                                               Name="ComboBoxDepozit"/>
+
+
+
+                                    <TextBlock Text="Недепозитный"
+                                               Name="ComboBoxNonDepozit"/>
+                                </ComboBox>
+                                <TextBlock Text="{Binding Balance, StringFormat='Баланс: {0}', FallbackValue='Баланс: счет не открыт'}"
+                                           Grid.Row="1"
+                                           Name="ClientBalance"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontSize="18" Height="22" Width="258"
+                                           Foreground ="AliceBlue"
+                                           />
+
+
+
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        Content="Перевод"
+                                        Grid.Row="2"
+                                        HorizontalAlignment="Right"
+                                        Margin="10,6,10,8" Click="PaymentPanelVisibility" Width="90"/>
+                            </Grid>
+                        </Border>
+
+                        <Border Width="300"
+                                Height="130"
+                                Margin="10 15"
+                                Background="#424042"
+                                CornerRadius="15"
+                                Visibility="Visible"
+                                Name="PaymentPanel"
+                                >
+                            <StackPanel>
+                                <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                          Width="270"
+                                          Name="ListClients"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top"
+                                          Margin="15 0 0 0"
+                                          materialDesign:HintAssist.Hint="Получатель"
+                                          FontSize="14"
+                                          Foreground="Black"
+                                      />
+                                <TextBox FontSize="14"
+                                         Name="transferAmount"
+                                         Width="200"
+                                         Height="30"
+                                         HorizontalAlignment="Left"
+                                         Margin="15 15 0 0"
+                                         materialDesign:HintAssist.Hint="Сумма"
+                                         Foreground ="White"
+                                         FontWeight="DemiBold"
+                                         GotKeyboardFocus="TransferAmountGotFocus"/>
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        Content="Перевести"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Margin="0 5 10 0"
+                                        Click="OnClickTransferMoney"
+                                        />
+                            </StackPanel>
+
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
